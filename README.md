@@ -39,7 +39,7 @@ Stack of choice:
 I will be utilising the Model-View-Controller Architectural pattern as this will seperate the logic into 3 interconnected parts. 
 
 
-![MVCSolution](InterviewTask\MVCSolution.png)
+![MVCSolution](InterviewTask/MVCSolution.png)
 
 
 ***Why use docker?*** It isolates the environment during development, testing, and deployment. It is an overall Quality of development life improvement :)
