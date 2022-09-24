@@ -6,7 +6,7 @@
 - [ ] Set up Dockerfiles to create docker images for each "*end*"
   - [ ] Frontend
   - [ ] Backend
-  - [ ] DB-end :) 
+  - [x] DB-end :) 
 - [ ] API Server
   - [ ] Set up UnitTests and Success conditions
   - [ ] Request mapping 
