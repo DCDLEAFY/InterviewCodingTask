@@ -16,8 +16,8 @@
     - [ ] Search -> Get Request
     - [ ] Add -> Post Request
     - [ ] Edit -> Put/Post Request
-- [ ] Database MySQL
-  - [ ] Create table based on AchmeBroker.txt file
+- [x] Database MySQL
+  - [x] Create table based on AchmeBroker.txt file
 - [ ] Frontend VUE
   - [ ] Json response from a get request to Server API 
   - [ ] Transform Json to User-friendly output - Table
