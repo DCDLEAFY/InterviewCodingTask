@@ -1,15 +1,11 @@
 <script setup >
 import InsuranceBroker from './components/InsuranceBroker.vue'
-import TheWelcome from './components/TheWelcome.vue'
+
 </script>
 
 
 <template>
-  <header>
-    
-
-    
-  </header>
+  <header></header>
 
   <main>
     <InsuranceBroker/>

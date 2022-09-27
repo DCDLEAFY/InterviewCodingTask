@@ -1,49 +1,60 @@
+
+
+<script setup>
+  import CustomerTable from "./CustomerTable.vue"
+</script>
+
 <template>
-  <div class="container">
-    <h2 class="text-center mt-5">Insurance Broker Customers</h2>
-
-    <!-- Temporary Search -->
-    <div class="d-flex">
-      <input type="text" placeholder="Search By ID" class="form-control">
-      <button class="btn btn-warning rounded-0" @click="GetData">Search</button>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top py-3">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#brokerNavbar" aria-controls="brokerNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="brokerNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" >Filter</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" >Add</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" >Delete</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" @click="GetData">Retrieve</a>
+        </li>
+      </ul>
     </div>
+  </nav>
 
-    <!-- Table view -->
-    <table class="table table-hover mt-5">
-      <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Name</th>
-          <th scope="col">Address</th>
-          <th scope="col">PolicyType</th>
-          <th scope="col">InsurerName</th>
-          <th scope="col">Premium</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(client, index) in clients" :key = "index">
-          <th scope="row">{{client.id}}</th>
-          <td>{{client.name}}</td>
-          <td>{{client.address}}</td>
-          <td>{{client.policyType}}</td>
-          <td>{{client.insurerName}}</td>
-          <td>{{client.premium}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  
+
+  <CustomerTable :clientsInfo="this.clients" />
+  
+
+
 </template>
+
+
 
 <script>
 import {GetAllCustomers} from "../api/endpoints.js"
+
 
 export default {
   name: "database-response",
   data() {
     return {
-      clients:
-        []
+      clients: [],
     }
+  },
+
+  created(){
+    GetAllCustomers()
+        .then(response => this.clients = response.data)
+        .then(console.log(this.clients))
+        .catch(error => alert(error))
   },
 
   methods: {
@@ -58,5 +69,30 @@ export default {
 </script>
 
 <style scoped>
-
+  .navbar .navbar-nav .nav-link:hover {
+    background-color: #fff;
+    color: #ffacb7;
+    transform: scale(1.01);
+  }  
+  .navbar .navbar-nav .nav-link {
+    padding: 0.6em;
+    font-size: 1.2em;
+    transition: all 0.5s;
+  }
+  .navbar .navbar-brand {
+    padding: 0 0.6em;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  @media only screen and (min-width: 992px) {
+    .navbar {
+      padding: 0;
+    }
+    .navbar .navbar-nav .nav-link {
+      padding: 1em 2em;
+    }
+    .navbar .navbar-brand {
+      padding: 0 0.8em;
+    }
+}
 </style>
