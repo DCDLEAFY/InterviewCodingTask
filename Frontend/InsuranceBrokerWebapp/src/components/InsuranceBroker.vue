@@ -2,6 +2,7 @@
 
 <script setup>
   import CustomerTable from "./CustomerTable.vue"
+  import Modal from "./Modal.vue"
 </script>
 
 <template>
@@ -16,7 +17,7 @@
           <a class="nav-link" >Filter</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" >Add</a>
+          <a class="nav-link" @click="ShowModal">Add</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" >Delete</a>
@@ -32,14 +33,53 @@
 
   <CustomerTable :clientsInfo="this.clients" />
   
-
-
+  <Modal v-show="isModalVisible" @Close="CloseModal" @AddCustomer="PostData">
+    <template v-slot:header>
+      Add Customer information to Database
+    </template>
+  
+    <template v-slot:body>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="addName">Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="addName" v-model="this.postCustomer.name">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="addAddress">Address</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="addAddress" v-model="this.postCustomer.address">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="addPolicy">PolicyType</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="addPolicy" v-model="this.postCustomer.policytype">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="addInsurer">InsurerName</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="addInsurer" v-model="this.postCustomer.insurername">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="addPremium">Premium</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="addPremium" v-model="this.postCustomer.premium">
+        </div>
+      </div>
+    </template>
+    <template v-slot:footer>
+      Footer
+    </template>
+  </Modal>
 </template>
 
 
 
 <script>
-import {GetAllCustomers} from "../api/endpoints.js"
+import {AddCustomer, GetAllCustomers} from "../api/endpoints.js"
 
 
 export default {
@@ -47,6 +87,14 @@ export default {
   data() {
     return {
       clients: [],
+      isModalVisible: false,
+      postCustomer: {
+        name:null,
+        address:null,
+        policytype:null,
+        insurername:null,
+        premium:null
+      }
     }
   },
 
@@ -58,12 +106,24 @@ export default {
   },
 
   methods: {
+    ShowModal(){
+      this.isModalVisible = true
+    },
+    CloseModal(){
+      this.isModalVisible = false
+    },
     GetData(){
-        GetAllCustomers()
-        .then(response => this.clients = response.data)
-        .then(console.log(this.clients))
-        .catch(error => alert(error))
-    }
+      GetAllCustomers()
+      .then(response => this.clients = response.data)
+      .then(console.log(this.clients))
+      .catch(error => alert(error))
+    },
+    PostData(){
+      this.CloseModal()
+      AddCustomer(this.postCustomer)
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
+    },
   }
 };
 </script>
