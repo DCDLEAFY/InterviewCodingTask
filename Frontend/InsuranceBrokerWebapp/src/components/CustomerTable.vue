@@ -29,70 +29,6 @@
                     <td>{{client.insurerName}}</td>
                     <td>{{client.premium}}</td>
                 </tr>
-                <tr v-for="(client, index) in clientsInfo" :key="index">
-                    <th scope="row">{{client.id}}</th>
-                    <td>{{client.name}}</td>
-                    <td>{{client.address}}</td>
-                    <td>{{client.policyType}}</td>
-                    <td>{{client.insurerName}}</td>
-                    <td>{{client.premium}}</td>
-                </tr>
-                <tr v-for="(client, index) in clientsInfo" :key="index">
-                    <th scope="row">{{client.id}}</th>
-                    <td>{{client.name}}</td>
-                    <td>{{client.address}}</td>
-                    <td>{{client.policyType}}</td>
-                    <td>{{client.insurerName}}</td>
-                    <td>{{client.premium}}</td>
-                </tr>
-                <tr v-for="(client, index) in clientsInfo" :key="index">
-                    <th scope="row">{{client.id}}</th>
-                    <td>{{client.name}}</td>
-                    <td>{{client.address}}</td>
-                    <td>{{client.policyType}}</td>
-                    <td>{{client.insurerName}}</td>
-                    <td>{{client.premium}}</td>
-                </tr>
-                <tr v-for="(client, index) in clientsInfo" :key="index">
-                    <th scope="row">{{client.id}}</th>
-                    <td>{{client.name}}</td>
-                    <td>{{client.address}}</td>
-                    <td>{{client.policyType}}</td>
-                    <td>{{client.insurerName}}</td>
-                    <td>{{client.premium}}</td>
-                </tr>
-                <tr v-for="(client, index) in clientsInfo" :key="index">
-                    <th scope="row">{{client.id}}</th>
-                    <td>{{client.name}}</td>
-                    <td>{{client.address}}</td>
-                    <td>{{client.policyType}}</td>
-                    <td>{{client.insurerName}}</td>
-                    <td>{{client.premium}}</td>
-                </tr>
-                <tr v-for="(client, index) in clientsInfo" :key="index">
-                    <th scope="row">{{client.id}}</th>
-                    <td>{{client.name}}</td>
-                    <td>{{client.address}}</td>
-                    <td>{{client.policyType}}</td>
-                    <td>{{client.insurerName}}</td>
-                    <td>{{client.premium}}</td>
-                </tr>
-                <tr v-for="(client, index) in clientsInfo" :key="index">
-                    <th scope="row">{{client.id}}</th>
-                    <td>{{client.name}}</td>
-                    <td>{{client.address}}</td>
-                    <td>{{client.policyType}}</td>
-                    <td>{{client.insurerName}}</td>
-                    <td>{{client.premium}}</td>
-                </tr>
-                <tr v-for="(client, index) in clientsInfo" :key="index">
-                    <th scope="row">{{client.id}}</th>
-                    <td>{{client.name}}</td>
-                    <td>{{client.address}}</td>
-                    <td>{{client.policyType}}</td>
-                    <td>{{client.insurerName}}</td>
-                    <td>{{client.premium}}</td>
-                </tr>
             </tbody>
         </table>
     </div>
@@ -100,8 +36,13 @@
 
 <script>
     export default {
-        props: ['clientsInfo']
-    }
+        props: ['clientsInfo'],
+        watch: {
+            clientsInfo: async function () {
+                console.log("Changed")
+            },
+        },
+    }   
 </script>
 
 <style scoped>
