@@ -14,3 +14,8 @@ export function AddCustomer(customer){
 export function DeleteCustomer(id){
     return axios.delete(url + apiCustomerPath + "?id=" + id);
 }
+
+export function UpdateCustomer(customer){
+    // const headers = { "Content-Type": "application/json" };
+    return axios.put(url + apiCustomerPath + "/" + customer.id, customer);
+}

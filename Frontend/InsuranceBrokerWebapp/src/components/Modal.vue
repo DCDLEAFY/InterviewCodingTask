@@ -51,6 +51,9 @@ export default {
                 case "DeleteCustomer":
                     this.$emit('DeleteCustomer');
                     break;
+                case "EditCustomer":
+                    this.$emit('EditCustomer');
+                    break;
                 default:
                     console.log(this.dynamicSubmit);
                     break;

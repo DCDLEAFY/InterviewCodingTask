@@ -22,6 +22,7 @@
                     <td>{{client.policyType}}</td>
                     <td>{{client.insurerName}}</td>
                     <td>{{client.premium}}</td>
+                    <td><img width="50" height="50" src="src\assets\ink.png" alt="inkimage" @click="EditClient(client)"></td>
                 </tr>
             </tbody>
         </table>
@@ -36,9 +37,15 @@
                 console.log(this.clientsInfo)
             },
         },
+        methods:{
+            EditClient(rowClient){
+                this.$emit('EditCustomer', rowClient);
+            }
+        }
     }   
 </script>
 
 <style scoped>
      div.container { padding-top: 70px; }
+
 </style>

@@ -16,16 +16,16 @@
     <div class="collapse navbar-collapse" id="brokerNavbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" >Filter</a>
+          <a class="nav-link" @click="ShowAddModal">Add</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" @click="ShowAddModal">Add</a>
+          <a class="nav-link" >Update Customer</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" @click="ShowDeleteModal">Delete</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" @click="GetData">Update Table</a>
+          <a class="nav-link" @click="GetData">Refresh Table</a>
         </li>
       </ul>
 
@@ -36,7 +36,7 @@
     </div>
   </nav>
 
-  <CustomerTable :clientsInfo="TableData"/>
+  <CustomerTable :clientsInfo="TableData" @EditCustomer="ShowEditModal"/>
 
   
   
@@ -48,31 +48,31 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="addName">Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="addName" v-model="this.postCustomer.name">
+          <input type="text" class="form-control" id="addName" v-model="this.customer.name">
         </div>
       </div>
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="addAddress">Address</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="addAddress" v-model="this.postCustomer.address">
+          <input type="text" class="form-control" id="addAddress" v-model="this.customer.address">
         </div>
       </div>
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="addPolicy">PolicyType</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="addPolicy" v-model="this.postCustomer.policytype">
+          <input type="text" class="form-control" id="addPolicy" v-model="this.customer.policytype">
         </div>
       </div>
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="addInsurer">InsurerName</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="addInsurer" v-model="this.postCustomer.insurername">
+          <input type="text" class="form-control" id="addInsurer" v-model="this.customer.insurername">
         </div>
       </div>
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="addPremium">Premium</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="addPremium" v-model="this.postCustomer.premium">
+          <input type="text" class="form-control" id="addPremium" v-model="this.customer.premium">
         </div>
       </div>
     </template>
@@ -96,12 +96,59 @@
     </template>
   </Modal>
 
+  <Modal dynamicSubmit="EditCustomer" v-show="isEditModalVisible" @Close="CloseEditModal" @EditCustomer="PutData">
+    <template v-slot:header>
+      Edit Customer information
+    </template>
+    <template v-slot:body>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="editId">ID</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="editId" v-model="this.customer.id" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="addName">Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="addName" v-model="this.customer.name">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="addAddress">Address</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="addAddress" v-model="this.customer.address">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="addPolicy">PolicyType</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="addPolicy" v-model="this.customer.policyType">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="addInsurer">InsurerName</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="addInsurer" v-model="this.customer.insurerName">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="addPremium">Premium</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="addPremium" v-model="this.customer.premium">
+        </div>
+      </div>
+    </template>
+    <template v-slot:footer>
+      Footer
+    </template>
+  </Modal>
+
 </template>
 
 
 
 <script>
-import {AddCustomer, GetAllCustomers, DeleteCustomer} from "../api/endpoints.js"
+import {AddCustomer, GetAllCustomers, DeleteCustomer, UpdateCustomer} from "../api/endpoints.js"
 
 export default {
   name: "database-response",
@@ -110,8 +157,9 @@ export default {
       clients: [],
       isAddModalVisible: false,
       isDeleteModalVisible: false,
+      isEditModalVisible: false,
       deleteId: -1,
-      postCustomer: {
+      customer: {
         name:null,
         address:null,
         policytype:null,
@@ -131,10 +179,17 @@ export default {
   },
 
   methods: {
+    ShowEditModal(value){
+      this.isEditModalVisible = true;
+      this.customer = value;
+    },
+    CloseEditModal(){
+      this.isEditModalVisible = false;
+      window.location.reload();
+    },
     clearFilter(){
       this.clientsFilter = "";
     },
-
     ShowAddModal(){
       this.isAddModalVisible = true
     },
@@ -146,17 +201,17 @@ export default {
     },
     CloseDeleteModal(){
       this.isDeleteModalVisible = false
+      window.location.reload()
     },
     GetData(){
       GetAllCustomers()
       .then(response => this.clients = response.data)
       .then(response => console.log("GetData status: " + response.status))
       .catch(error => alert(error))
-      
     },
     PostData(){
       this.CloseAddModal()
-      AddCustomer(this.postCustomer)
+      AddCustomer(this.customer)
       .then(response => console.log("Post status: " + response.status))
       .then(window.location.reload())
       .catch(error => console.log(error))
@@ -168,7 +223,13 @@ export default {
       .then(response => console.log("Delete status: "+ response.status))
       .then(window.location.reload())
       .catch(error => console.log(error))
-      
+    },
+    PutData(){
+      this.CloseEditModal()
+      console.log("Put data here please: " + this.customer.id)
+      UpdateCustomer(this.customer)
+      .then(response => console.log("Put status: " + response.status))
+      .catch(error => console.log(error))
     },
   },
 
