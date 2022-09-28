@@ -20,7 +20,7 @@
                 <slot name="footer">
                     Default Footer
                 </slot>
-                <button type="button" class="btn-green" @click="AddCustomer">
+                <button type="button" class="btn-green" @click="DynamicBtn">
                     Submit Modal
                 </button>
                 <button type="button" class="btn-green" @click="Close">
@@ -34,14 +34,29 @@
 
 <script>
 export default {
-    name: 'Modal',
+    props: ['dynamicSubmit'],
+
     methods: {
         Close() {
             this.$emit('Close');
         },
-        AddCustomer(){
-            this.$emit('AddCustomer');
-        }
+        DynamicBtn(){
+            switch (this.dynamicSubmit) {
+                case "Close":
+                    this.$emit('Close');
+                    break;
+                case "AddCustomer":
+                    this.$emit('AddCustomer');
+                    break;
+                case "DeleteCustomer":
+                    this.$emit('DeleteCustomer');
+                    break;
+                default:
+                    console.log(this.dynamicSubmit);
+                    break;
+            }
+
+        },
     },
 };
 </script>

@@ -3,6 +3,8 @@
 <script setup>
   import CustomerTable from "./CustomerTable.vue"
   import Modal from "./Modal.vue"
+
+
 </script>
 
 <template>
@@ -17,10 +19,10 @@
           <a class="nav-link" >Filter</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" @click="ShowModal">Add</a>
+          <a class="nav-link" @click="ShowAddModal">Add</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" >Delete</a>
+          <a class="nav-link" @click="ShowDeleteModal">Delete</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" @click="GetData">Retrieve</a>
@@ -31,13 +33,12 @@
 
   
 
-  <CustomerTable :clientsInfo="this.clients" />
+  <CustomerTable v-if="forcerenderbool" :clientsInfo="this.clients" />
   
-  <Modal v-show="isModalVisible" @Close="CloseModal" @AddCustomer="PostData">
+  <Modal dynamicSubmit="AddCustomer" v-show="isAddModalVisible" @Close="CloseAddModal" @AddCustomer="PostData">
     <template v-slot:header>
       Add Customer information to Database
     </template>
-  
     <template v-slot:body>
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="addName">Name</label>
@@ -74,27 +75,46 @@
       Footer
     </template>
   </Modal>
+
+
+  <Modal dynamicSubmit="DeleteCustomer" v-show="isDeleteModalVisible" @Close="CloseDeleteModal" @DeleteCustomer="DeleteData">
+    <template v-slot:header>
+      Enter Customer ID to delete
+    </template>
+    <template v-slot:body>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="deleteCustomerID">Customer ID</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="deleteCustomerID" v-model="this.deleteId">
+        </div>
+      </div>
+    </template>
+  </Modal>
+
 </template>
 
 
 
 <script>
-import {AddCustomer, GetAllCustomers} from "../api/endpoints.js"
-
+import {AddCustomer, GetAllCustomers, DeleteCustomer} from "../api/endpoints.js"
 
 export default {
   name: "database-response",
   data() {
     return {
+      forcerenderbool: true,
+
       clients: [],
-      isModalVisible: false,
+      isAddModalVisible: false,
+      isDeleteModalVisible: false,
+      deleteId: -1,
       postCustomer: {
         name:null,
         address:null,
         policytype:null,
         insurername:null,
         premium:null
-      }
+      },
     }
   },
 
@@ -106,23 +126,47 @@ export default {
   },
 
   methods: {
-    ShowModal(){
-      this.isModalVisible = true
+    forceRender(){
+      this.forcerenderbool = false;
+
+      this.$nextTick(() => {
+        this.forcerenderbool = true;
+      })
     },
-    CloseModal(){
-      this.isModalVisible = false
+    ShowAddModal(){
+      this.isAddModalVisible = true
+    },
+    CloseAddModal(){
+      this.isAddModalVisible = false
+    },
+    ShowDeleteModal(){
+      this.isDeleteModalVisible = true
+    },
+    CloseDeleteModal(){
+      this.isDeleteModalVisible = false
     },
     GetData(){
       GetAllCustomers()
       .then(response => this.clients = response.data)
-      .then(console.log(this.clients))
+      .then(response => console.log(response.status))
       .catch(error => alert(error))
+      
     },
     PostData(){
-      this.CloseModal()
+      this.CloseAddModal()
       AddCustomer(this.postCustomer)
-      .then(response => console.log(response))
+      .then(response => console.log(response.status))
+      .then(this.GetData())
       .catch(error => console.log(error))
+      window.location.reload();
+    },
+    DeleteData(){
+      this.CloseDeleteModal()
+      DeleteCustomer(this.deleteId)
+      .then(response => console.log(response))
+      .then(this.GetData())
+      .catch(error => console.log(error))
+      window.location.reload();
     },
   }
 };
