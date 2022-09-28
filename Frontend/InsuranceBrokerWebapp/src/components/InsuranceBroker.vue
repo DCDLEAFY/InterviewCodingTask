@@ -25,15 +25,20 @@
           <a class="nav-link" @click="ShowDeleteModal">Delete</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" @click="GetData">Retrieve</a>
+          <a class="nav-link" @click="GetData">Update Table</a>
         </li>
       </ul>
+
+      <div class="input-group mb-3 w-25 pt-3">
+        <input type="text" class="form-control" placeholder="Filter" aria-label="Recipient's username" aria-describedby="button-addon2" v-model="clientsFilter">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="clearFilter">Clear</button>
+      </div>
     </div>
   </nav>
 
-  
+  <CustomerTable :clientsInfo="TableData"/>
 
-  <CustomerTable v-if="forcerenderbool" :clientsInfo="this.clients" />
+  
   
   <Modal dynamicSubmit="AddCustomer" v-show="isAddModalVisible" @Close="CloseAddModal" @AddCustomer="PostData">
     <template v-slot:header>
@@ -102,8 +107,6 @@ export default {
   name: "database-response",
   data() {
     return {
-      forcerenderbool: true,
-
       clients: [],
       isAddModalVisible: false,
       isDeleteModalVisible: false,
@@ -115,6 +118,8 @@ export default {
         insurername:null,
         premium:null
       },
+
+      clientsFilter: "",
     }
   },
 
@@ -126,13 +131,10 @@ export default {
   },
 
   methods: {
-    forceRender(){
-      this.forcerenderbool = false;
-
-      this.$nextTick(() => {
-        this.forcerenderbool = true;
-      })
+    clearFilter(){
+      this.clientsFilter = "";
     },
+
     ShowAddModal(){
       this.isAddModalVisible = true
     },
@@ -148,31 +150,56 @@ export default {
     GetData(){
       GetAllCustomers()
       .then(response => this.clients = response.data)
-      .then(response => console.log(response.status))
+      .then(response => console.log("GetData status: " + response.status))
       .catch(error => alert(error))
       
     },
     PostData(){
       this.CloseAddModal()
       AddCustomer(this.postCustomer)
-      .then(response => console.log(response.status))
-      .then(this.GetData())
+      .then(response => console.log("Post status: " + response.status))
+      .then(window.location.reload())
       .catch(error => console.log(error))
-      window.location.reload();
+      
     },
     DeleteData(){
       this.CloseDeleteModal()
       DeleteCustomer(this.deleteId)
-      .then(response => console.log(response))
-      .then(this.GetData())
+      .then(response => console.log("Delete status: "+ response.status))
+      .then(window.location.reload())
       .catch(error => console.log(error))
-      window.location.reload();
+      
     },
+  },
+
+  computed: {
+    FilterTable(){
+      return this.clients.filter(row => {
+        const name = row.name.toString().toLowerCase();
+        const address = row.address.toString().toLowerCase();
+        const policyType = row.policyType.toString().toLowerCase();
+        const insurerName = row.insurerName.toString().toLowerCase();
+        const premium = row.premium.toString();
+        const searchTerm = this.clientsFilter.toLowerCase();
+
+        return name.includes(searchTerm) ||
+          address.includes(searchTerm) ||
+          policyType.includes(searchTerm) ||
+          insurerName.includes(searchTerm) ||
+          premium.includes(searchTerm);
+      });
+    },
+    TableData(){
+      if(this.clientsFilter === ""){
+        return this.clients;
+      }
+      return this.FilterTable;
+    }
   }
 };
 </script>
 
-<style scoped>
+<style scoped>  
   .navbar .navbar-nav .nav-link:hover {
     background-color: #fff;
     color: #ffacb7;

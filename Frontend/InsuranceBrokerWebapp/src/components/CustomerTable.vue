@@ -2,12 +2,6 @@
     <div class="container">
         <h2 class="text-center mt-5">Insurance Broker Customers</h2>
 
-        <!-- Temporary Search -->
-        <div class="d-flex">
-            <input type="text" placeholder="Search By ID" class="form-control">
-            <button class="btn btn-warning rounded-0">Get</button>
-        </div>
-
         <!-- Table view -->
         <table class="table table-hover mt-5">
             <thead>
@@ -38,8 +32,8 @@
     export default {
         props: ['clientsInfo'],
         watch: {
-            clientsInfo: async function () {
-                console.log("Changed")
+            clientsInfo: function () {
+                console.log(this.clientsInfo)
             },
         },
     }   
