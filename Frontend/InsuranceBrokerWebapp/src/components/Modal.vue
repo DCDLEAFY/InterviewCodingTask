@@ -18,7 +18,6 @@
 
             <footer class="modal-footer">
                 <slot name="footer">
-                    Default Footer
                 </slot>
                 <button type="button" class="btn-green" @click="DynamicBtn">
                     Submit Modal
@@ -71,16 +70,17 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Raleway', sans-serif;
 }
 
 .modal {
     position: absolute;
     width: 700px;
-    height: 400px;
+    height: 450px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -102,6 +102,8 @@ export default {
     border-bottom: 1px solid #eeeeee;
     color: #4AAE9B;
     justify-content: space-between;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.4em;
 }
 
 .modal-footer {

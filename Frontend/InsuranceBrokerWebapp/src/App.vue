@@ -13,9 +13,13 @@ import InsuranceBroker from './components/InsuranceBroker.vue'
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
+  header {
+    line-height: 1.5;
+  }
+
+  main{
+    background: linear-gradient(360deg, #ffffff 0%, #ff8b8b 100%);
+  }
 
 
 </style>

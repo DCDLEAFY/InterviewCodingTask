@@ -1,4 +1,8 @@
-/* color palette from <https://github.com/vuejs/theme> */
+
+/* Importing fonts to use globally*/
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;

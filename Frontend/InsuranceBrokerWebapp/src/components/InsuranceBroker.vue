@@ -8,30 +8,26 @@
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top py-3">
-    <a class="navbar-brand" href="#">Navbar</a>
+  <nav class="navbar navbar-expand fixed-top py-3 shadow">
+    <a class="navbar-brand" href="#">BRO<span class="span-brand">KER</span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#brokerNavbar" aria-controls="brokerNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="brokerNavbar">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" @click="ShowAddModal">Add</a>
+          <a class="nav-link" @click="ShowAddModal">Add<span class="span-brand">+</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" >Update Customer</a>
+          <a class="nav-link" @click="ShowDeleteModal">Delete<span class="span-brand">+</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" @click="ShowDeleteModal">Delete</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" @click="GetData">Refresh Table</a>
+          <a class="nav-link" @click="GetData">Refresh Table<span class="span-brand">+</span></a>
         </li>
       </ul>
-
-      <div class="input-group mb-3 w-25 pt-3">
-        <input type="text" class="form-control" placeholder="Filter" aria-label="Recipient's username" aria-describedby="button-addon2" v-model="clientsFilter">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="clearFilter">Clear</button>
+      <div class="form-outline input-group mb-3 w-25 pt-3 pe-5">
+        <input type="text" class="form-control rounded-5" placeholder="Insert Filter" aria-describedby="button-addon2" v-model="clientsFilter">
+        <button class="btn btn-danger rounded-5" type="button" id="button-addon2" @click="clearFilter">Clear</button>
       </div>
     </div>
   </nav>
@@ -185,7 +181,7 @@ export default {
     },
     CloseEditModal(){
       this.isEditModalVisible = false;
-      window.location.reload();
+      window.location.reload()
     },
     clearFilter(){
       this.clientsFilter = "";
@@ -201,7 +197,6 @@ export default {
     },
     CloseDeleteModal(){
       this.isDeleteModalVisible = false
-      window.location.reload()
     },
     GetData(){
       GetAllCustomers()
@@ -225,11 +220,10 @@ export default {
       .catch(error => console.log(error))
     },
     PutData(){
-      this.CloseEditModal()
-      console.log("Put data here please: " + this.customer.id)
       UpdateCustomer(this.customer)
       .then(response => console.log("Put status: " + response.status))
       .catch(error => console.log(error))
+      .finally(this.CloseEditModal())
     },
   },
 
@@ -261,9 +255,20 @@ export default {
 </script>
 
 <style scoped>  
+
+  .form-control:focus {
+    border-color: #c78282;
+    box-shadow: 0 0 0 0.2rem rgba(245, 91, 91, 0.25);
+  }
+  .btn {
+    font-family: 'Roboto', sans-serif;
+  }
+  .nav-link{
+    font-family: 'Roboto', sans-serif;
+    color: white;
+  }
   .navbar .navbar-nav .nav-link:hover {
-    background-color: #fff;
-    color: #ffacb7;
+    color: #ee4545;
     transform: scale(1.01);
   }  
   .navbar .navbar-nav .nav-link {
@@ -275,7 +280,16 @@ export default {
     padding: 0 0.6em;
     font-size: 1.5em;
     font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    color: white;
   }
+
+  .span-brand{
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(255, 133, 133);
+  }
+
   @media only screen and (min-width: 992px) {
     .navbar {
       padding: 0;
@@ -286,5 +300,10 @@ export default {
     .navbar .navbar-brand {
       padding: 0 0.8em;
     }
-}
+  }
+
+  nav{
+      background-color: #222222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 </style>
