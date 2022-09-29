@@ -27,6 +27,7 @@
                     <td>{{client.premium}}</td>
                     <td><img class="rounded-circle border" width="50" height="50" src="src\assets\ink.png" alt="inkimage" @click="EditClient(client)"></td>
                 </tr>
+
             </tbody>
         </table>
 
@@ -44,9 +45,7 @@
         },
         props: ['clientsInfo'],
         watch: {
-            clientsInfo: function () {
-                console.log(this.clientsInfo)
-            },
+
         },
         methods:{
             EditClient(rowClient){
@@ -90,6 +89,7 @@
     tr.hoverable:hover{
         font-weight: bold;
         color: #01987a;
+        scale: 1.005;
     }
 
     tr.hoverable:hover > td> img{

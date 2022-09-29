@@ -44,8 +44,8 @@ export default {
                 case "Close":
                     this.$emit('Close');
                     break;
-                case "AddCustomer":
-                    this.$emit('AddCustomer');
+                case "AddNewCustomer":
+                    this.$emit('AddNewCustomer');
                     break;
                 case "DeleteCustomer":
                     this.$emit('DeleteCustomer');
