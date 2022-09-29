@@ -3,6 +3,10 @@
   import BrokerNav from './components/BrokerNavbar.vue'
   import CustomerTable from "./components//CustomerTable.vue"
   import Modal from "./components//Modal.vue"
+  import '@coreui/coreui/dist/css/coreui.min.css'
+  import { CToast, CToaster, CToastHeader, CToastBody } from '@coreui/vue'
+
+
 </script>
 
 
@@ -16,7 +20,20 @@
     @navrefresh="GetClientsData" 
     @filterstring="GetFilterSearch"/>
 
+
     <CustomerTable :clientsInfo="(filterSearch === '')? clientTableData : FilterTable" @EditCustomer="GetEditableRow"/>
+
+    <CToaster placement="bottom-end">
+      <CToast v-for="(toast, index) in toasts">
+        <CToastHeader closeButton>
+          <span :class="ifPositiveToast">{{toast.title}}</span>
+          <small>Now...</small>
+        </CToastHeader>
+        <CToastBody>
+          {{ toast.content }}
+        </CToastBody>  
+      </CToast>
+    </CToaster>
   
     <Modal dynamicSubmit="AddNewCustomer" v-show="showAddModal" @Close="{showAddModal = !showAddModal;}" @AddNewCustomer="AddClientData">
       <template v-slot:header>
@@ -67,7 +84,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="deleteCustomerID">Customer ID</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="deleteCustomerID" v-model="this.deleteId">
+            <input type="number" class="form-control" id="deleteCustomerID" v-model="this.deleteId">
           </div>
         </div>
       </template>
@@ -81,7 +98,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="editId">ID</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="editId" v-model="this.customer.id" readonly>
+            <input type="number" class="form-control" id="editId" v-model="this.customer.id" readonly>
           </div>
         </div>
         <div class="form-group row">
@@ -111,7 +128,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="addPremium">Premium</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="addPremium" v-model="this.customer.premium">
+            <input type="number" class="form-control" id="addPremium" v-model="this.customer.premium">
           </div>
         </div>
       </template>
@@ -142,6 +159,8 @@
           premium:null
         },
         deleteId: 0,
+        toasts: [],
+        toastStatus: true,
       }
     },
     watch:{
@@ -169,6 +188,12 @@
             premium.includes(searchTerm);
         });
     },
+    ifPositiveToast(){
+      if(this.toastStatus){
+        return "me-auto fw-bold text-success"
+      }
+      return "me-auto fw-bold text-danger"
+    },
     },
 
     methods:{
@@ -183,24 +208,28 @@
         GetAllCustomers()
         .then((response) => {
           if(response.status !== 200){
-            throw new Error("HTTP Status: " + response.status)
-          }
-          this.clientTableData = response.data;
+            this.CreateToast("Error has occured", "HTTP Status: " + response.status, false)
+          } else { 
+            this.clientTableData = response.data;
+            this.CreateToast("Table Updated!", "Data request was Successful!", true)
+           }
         })
-        .catch(err => alert(err))
+        .catch(err => this.CreateToast("Error has occured", "HTTP Status: " + err.status, false))
       },
 
       AddClientData(){
         AddCustomer(this.customer)
         .then((response) => {
           if(response.status !== 200){
-            throw new Error("HTTP Status: " + response.status)
+            this.CreateToast("Error has occured!", "HTTP Status: " + response.status, false)
+          } else {
+            this.CreateToast("Add was Successfull","Customer added to Database", true)
+            this.GetClientsData();
           }
         })
-        .catch(err => alert(err))
+        .catch(err => this.CreateToast("Error has occured", "HTTP Status: " + err.status, false))
         .finally(()=>{
           this.showAddModal = !this.showAddModal;
-          window.location.reload();
         })
       },
 
@@ -208,13 +237,15 @@
         DeleteCustomer(this.deleteId)
         .then((response) => {
           if(response.status !== 200){
-            throw new Error("HTTP Status: " + response.status)
+            this.CreateToast("Error has occured!", "HTTP Status: " + response.status, false)
+          } else {
+            this.CreateToast("Delete was Successfull","Customer removed from Database", true)
+            this.GetClientsData();
           }
         })
-        .catch(err => alert(err))
+        .catch(err => this.CreateToast("Error has occured", "HTTP Status: " + err.status, false))
         .finally(()=>{
           this.showDeleteModal = !this.showDeleteModal;
-          window.location.reload();
         })
       },
 
@@ -222,14 +253,29 @@
         UpdateCustomer(this.customer)
         .then((response) => {
           if(response.status !== 200){
-            throw new Error("HTTP Status: " + response.status)
+            this.CreateToast("Error has occured!", "HTTP Status: " + response.status, false)
+            this.GetClientsData()
+          } else {
+            this.CreateToast("Update was Successfull","Customer Updated in Database", true)
           }
         })
-        .catch(err => alert(err))
+        .catch(err => {
+          this.CreateToast("Error has occured", "HTTP Status: " + err.status, false)
+          this.GetClientsData()
+        })
         .finally(()=>{
           this.showEditModal = !this.showEditModal;
         })
-      }
+      },
+
+      CreateToast(title, content, status){
+        this.toastStatus = status;
+        this.toasts.push({
+          title: title,
+          content: content
+        })
+      },
+
     }
   }  
   
@@ -237,6 +283,8 @@
 </script>
 
 <style scoped>
+
+
   header {
     line-height: 1.5;
   }

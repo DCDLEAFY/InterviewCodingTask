@@ -57,6 +57,15 @@
 
 <style scoped>
     
+    img{
+        cursor: pointer;
+        filter: blur(0.5px);
+    }
+
+    img:hover{
+
+        filter: blur(0px);
+    }
     .header-wrapper{
         padding-top: 20px;
         display: block;
@@ -87,7 +96,7 @@
     }
 
     tr.hoverable:hover{
-        font-weight: bold;
+        /* font-weight: bold; */
         color: #01987a;
         scale: 1.005;
     }

@@ -77,6 +77,7 @@
   .nav-link{
     font-family: 'Roboto', sans-serif;
     color: white;
+    cursor: pointer;
   }
   .navbar .navbar-nav .nav-link:hover {
     color: #ee4545;
