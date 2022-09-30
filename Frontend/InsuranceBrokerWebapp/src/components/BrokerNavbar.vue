@@ -7,13 +7,13 @@
     <div class="collapse navbar-collapse" id="brokerNavbar">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" @click="NavEmitHandler('navadd')">Add<span class="span-brand">+</span></a>
+          <a class="nav-link" id="addEvent" @click="NavEmitHandler('navadd')">Add<span class="span-brand">+</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" @click="NavEmitHandler('navdelete')">Delete<span class="span-brand">+</span></a>
+          <a class="nav-link" id="deleteEvent" @click="NavEmitHandler('navdelete')">Delete<span class="span-brand">+</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" @click="NavEmitHandler('navrefresh')">Refresh Table<span class="span-brand">+</span></a>
+          <a class="nav-link" id="getEvent" @click="NavEmitHandler('navrefresh')">Refresh Table<span class="span-brand">+</span></a>
         </li>
       </ul>
       <div class="form-outline input-group mb-3 w-25 pt-3 pe-5">

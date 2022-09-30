@@ -19,7 +19,7 @@
             <footer class="modal-footer">
                 <slot name="footer">
                 </slot>
-                <button type="button" class="btn-green" @click="DynamicBtn">
+                <button type="button" id="submitButton" class="btn-green" @click="DynamicBtn">
                     Submit Modal
                 </button>
                 <button type="button" class="btn-green" @click="Close">

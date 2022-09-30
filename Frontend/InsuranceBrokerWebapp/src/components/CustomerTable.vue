@@ -25,7 +25,7 @@
                     <td>{{client.policyType}}</td>
                     <td>{{client.insurerName}}</td>
                     <td>{{client.premium}}</td>
-                    <td><img class="rounded-circle border" width="50" height="50" src="src\assets\ink.png" alt="inkimage" @click="EditClient(client)"></td>
+                    <td><img class="rounded-circle border" width="50" height="50" src="/ink.png" alt="inkimage" @click="EditClient(client)"></td>
                 </tr>
 
             </tbody>
