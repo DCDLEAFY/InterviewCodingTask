@@ -292,7 +292,7 @@
   main{
     background: linear-gradient(410deg, #d8cdcd 50%, #ff2525 100%);
     /* background-color: #222222; */
-    padding-bottom: 300px;
+    padding-bottom: 600px;
   }
 
 
