@@ -19,12 +19,14 @@
             <footer class="modal-footer">
                 <slot name="footer">
                 </slot>
-                <button type="button" id="submitButton" class="btn-green" @click="DynamicBtn">
+                <form action="" class="col-auto">
+                    <button type="button" id="submitButton" class="btn-modal" @click="DynamicBtn">
                     Submit Modal
-                </button>
-                <button type="button" class="btn-green" @click="Close">
-                    Close Modal
-                </button>
+                    </button>
+                    <button type="button" class="btn-modal" @click="Close">
+                        Close Modal
+                    </button>
+                </form>
             </footer>
         </div>
     </div>
@@ -64,6 +66,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -79,7 +83,7 @@ export default {
 
 .modal {
     position: absolute;
-    width: 700px;
+    width: 650px;
     height: 450px;
     left: 50%;
     top: 50%;
@@ -89,6 +93,8 @@ export default {
     overflow-x: auto;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
+    border-radius: 0.5em;
 }
 
 .modal-header,
@@ -99,23 +105,30 @@ export default {
 
 .modal-header {
     position: relative;
-    border-bottom: 1px solid #eeeeee;
-    color: #4AAE9B;
+    border: hidden;
+    /* border-bottom: 1px solid #eeeeee; */
+    color: white;
     justify-content: space-between;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.4em;
+    background-color: #ce5f5f;
 }
 
 .modal-footer {
-    border-top: 1px solid #eeeeee;
+    /* border-top: 1px solid #eeeeee; */
     flex-direction: column;
     justify-content: flex-end;
+    border: hidden;
+    background-color: #222222;
 }
 
 .modal-body {
     position: relative;
     padding: 20px 10px;
     align-items: center;
+    background-color: #222222;
+    color: white;
+    border: hidden;
 }
 
 .btn-close {
@@ -131,10 +144,15 @@ export default {
     background: transparent;
 }
 
-.btn-green {
+.btn-modal {
     color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
+    background: #da7171;
+    /* border: 1px solid #4AAE9B; */
     border-radius: 2px;
+    border-radius: 1em;
+    border: hidden;
+    margin-inline: 90px;
 }
+
+
 </style>

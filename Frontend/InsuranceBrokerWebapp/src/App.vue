@@ -76,7 +76,7 @@
     </Modal>
 
 
-    <Modal dynamicSubmit="DeleteCustomer" v-show="showDeleteModal" @Close="{showDeleteModal = !showDeleteModal;}" @DeleteCustomer="DeleteClientData">
+    <Modal dynamicSubmit="DeleteCustomer" v-show="showDeleteModal" @Close="{showDeleteModal = !showDeleteModal;}" @DeleteCustomer="DeleteClientData" >
       <template v-slot:header>
         Enter Customer ID to delete
       </template>
@@ -208,26 +208,26 @@
         GetAllCustomers()
         .then((response) => {
           if(response.status !== 200){
-            this.CreateToast("Error has occured", "HTTP Status: " + response.status, false)
+            this.CreateToast("GET Error has occured", "HTTP Status: " + response.status, false)
           } else { 
             this.clientTableData = response.data;
             this.CreateToast("Table Updated!", "Data request was Successful!", true)
            }
         })
-        .catch(err => this.CreateToast("Error has occured", "HTTP Status: " + err.status, false))
+        .catch(err => this.CreateToast("GET Error has occured", "HTTP Status: " + err.status, false))
       },
 
       AddClientData(){
         AddCustomer(this.customer)
         .then((response) => {
           if(response.status !== 200){
-            this.CreateToast("Error has occured!", "HTTP Status: " + response.status, false)
+            this.CreateToast("ADD Error has occured!", "HTTP Status: " + response.status, false)
           } else {
             this.CreateToast("Add was Successfull","Customer added to Database", true)
             this.GetClientsData();
           }
         })
-        .catch(err => this.CreateToast("Error has occured", "HTTP Status: " + err.status, false))
+        .catch(err => this.CreateToast("ADD Error has occured", "HTTP Status: " + err.status, false))
         .finally(()=>{
           this.showAddModal = !this.showAddModal;
         })
@@ -237,13 +237,13 @@
         DeleteCustomer(this.deleteId)
         .then((response) => {
           if(response.status !== 200){
-            this.CreateToast("Error has occured!", "HTTP Status: " + response.status, false)
+            this.CreateToast("DELETE Error has occured!", "HTTP Status: " + response.status, false)
           } else {
             this.CreateToast("Delete was Successfull","Customer removed from Database", true)
             this.GetClientsData();
           }
         })
-        .catch(err => this.CreateToast("Error has occured", "HTTP Status: " + err.status, false))
+        .catch(err => this.CreateToast("DELETE Error has occured", "HTTP Status: " + err.status, false))
         .finally(()=>{
           this.showDeleteModal = !this.showDeleteModal;
         })
@@ -253,14 +253,14 @@
         UpdateCustomer(this.customer)
         .then((response) => {
           if(response.status !== 200){
-            this.CreateToast("Error has occured!", "HTTP Status: " + response.status, false)
+            this.CreateToast("UPDATE Error has occured!", "HTTP Status: " + response.status, false)
             this.GetClientsData()
           } else {
             this.CreateToast("Update was Successfull","Customer Updated in Database", true)
           }
         })
         .catch(err => {
-          this.CreateToast("Error has occured", "HTTP Status: " + err.status, false)
+          this.CreateToast("UPDATE Error has occured", "HTTP Status: " + err.status, false)
           this.GetClientsData()
         })
         .finally(()=>{
@@ -290,9 +290,9 @@
   }
 
   main{
-    background: linear-gradient(410deg, #d8cdcd 50%, #ff2525 100%);
-    /* background-color: #222222; */
-    padding-bottom: 600px;
+    /* background: linear-gradient(410deg, #d8cdcd 50%, #ff2525 100%); */
+    background-color: #222222;
+    padding-bottom: 400px;
   }
 
 

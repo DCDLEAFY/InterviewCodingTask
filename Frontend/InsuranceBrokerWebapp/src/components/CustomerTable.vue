@@ -8,13 +8,13 @@
         <table class="table mt-5 table-rounded">
             <thead>
                 <tr class="row-bg-one">
-                    <th scope="col">Id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">PolicyType</th>
-                    <th scope="col">InsurerName</th>
-                    <th class scope="col">Premium</th>
-                    <th class="col-md-1" scope="col">Editable</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">ADDRESS</th>
+                    <th scope="col">POLICY-TYPE</th>
+                    <th scope="col">INSURER-NAME</th>
+                    <th class scope="col">PREMIUM</th>
+                    <th class="col-md-1" scope="col">EDIT</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,6 +56,8 @@
 </script>
 
 <style scoped>
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500&family=Roboto:wght@100&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
     
     img{
         cursor: pointer;
@@ -70,18 +72,18 @@
         padding-top: 20px;
         display: block;
         text-align: center;
-        
     }
 
     .header-title{
         display: inline-block;
         width: auto;
-        border: 20px solid black;
-        background-color: black;
         color: rgb(255, 133, 133);
-        box-shadow: 4px 4px 5px rgb(37, 34, 34);
+        box-shadow: 15px 20px 20px rgb(0, 0, 0, 50%);
         font-family: 'Roboto', sans-serif;
         font-weight: bold;
+        padding: 20px;
+        background-color: #161414;
+        /* background-color: #222222; */
     }
     div.container { 
         padding-top: 100px; 
@@ -92,13 +94,20 @@
         height: 70px;
     }
     .table-rounded tr td{
-        border-bottom: 1px solid #dddddd;
+        /* border-bottom: 1px solid #000000; */
     }
 
     tr.hoverable:hover{
         /* font-weight: bold; */
-        color: #01987a;
+        color: #cc3a3a;
         scale: 1.005;
+    }
+
+    tr{
+        border: hidden;
+        box-shadow: 2px 8px 10px rgb(0, 0, 0, 20%);
+        font-family: 'Raleway', sans-serif;
+        font-weight: 500;
     }
 
     tr.hoverable:hover > td> img{
@@ -134,25 +143,28 @@
         font-size: 0.9em;
         animation: 1.5s fadeIn;
         animation-fill-mode: forwards;
+
+        border: hidden;
     }
 
     .row-bg-one{
-        background-color: #01987a;
+        /* background-color: #01987a; */
+        background-color: #da7171;
         color: white;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Roboto', sans-serif;
         font-size: 1.4em;
     }
 
     .row-bg-two{
-        background-color: #ffffff;
-        color: black;
+        background-color: #222222;
+        color: rgb(155, 139, 139);
         font-family: 'Raleway', sans-serif;
         font-size: 1.1em;
     }
     
     .row-bg-three{
-        background-color: #f3f3f3;
-        color: black;
+        background-color: #222222;
+        color: rgb(153, 131, 131);
         font-family: 'Raleway', sans-serif;
         font-size: 1.1em;
     }
