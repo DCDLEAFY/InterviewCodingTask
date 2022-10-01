@@ -2,19 +2,15 @@ name: Docker Build Image CI
 
 on:
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
   workflow_dispatch:
-    
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build DB docker image
-      working-directory: Database
-      run: docker build -t localmysql:v1 .
+      - uses: actions/checkout@v3
+      - name: Docker-compose build
+        run: docker-compose up
