@@ -17,9 +17,9 @@ jobs:
         run: docker build -t localmysql:v1 .
 
       - name: Build Frontend Image
-        working-directory: Frontend\InsuranceBrokerWebapp
+        working-directory: Frontend/InsuranceBrokerWebapp
         run: docker build -t InsuranceBrokerWebapp:v1 .
 
       - name: Build Backend Image
-        working-directory: Backend\WebApi
+        working-directory: Backend/WebApi
         run: docker build -t Webapi:v1 .
