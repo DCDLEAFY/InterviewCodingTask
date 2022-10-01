@@ -1,8 +1,10 @@
 using WebApi.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebApi.Controllers;
 
+[EnableCors("CorsPolicy")]
 [ApiController]
 [Route("api/[controller]")]
 public class CustomerController : ControllerBase
@@ -14,28 +16,33 @@ public class CustomerController : ControllerBase
         customerDatabase = new CustomerDatabase();
     }
 
+    [EnableCors("CorsPolicy")]
     [HttpGet]
     public IEnumerable<Customer> Get()
     {
         return customerDatabase.GetAll();
     }
 
+    [EnableCors("CorsPolicy")]
     [HttpGet("{id}")]
     public Customer Get(int id)
     {
         return customerDatabase.GetById(id);
     }
 
+    [EnableCors("CorsPolicy")]
     [HttpPost]
     public void Post([FromBody] Customer customer)
     {
+        Console.WriteLine("Out");
         if (ModelState.IsValid)
         {
+            Console.WriteLine("In");
             customerDatabase.Add(customer);
         }
     }
 
-
+    [EnableCors("CorsPolicy")]
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] Customer customer)
     {
@@ -46,6 +53,7 @@ public class CustomerController : ControllerBase
         }
     }
 
+    [EnableCors("CorsPolicy")]
     [HttpDelete]
     public void Delete(int id)
     {
