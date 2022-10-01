@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  front:
+    build: Frontend\InsuranceBrokerWebapp\.
+    ports:
+      - "8080:80"
+  back:
+    build: Backend\WebApi\.
+    ports:
+      - "5143:5143"
+  db:
+    build: Database\.
+    ports:
+      - "3306:3306"
