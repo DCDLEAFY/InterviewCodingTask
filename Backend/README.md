@@ -11,8 +11,4 @@ There were some cautionary tales to look out for, mainly requests to the api tha
 
 Swagger inteegration for ease of testing api endpoints during development.
 
-Information on connecting to the Database is stored in WebApi/Properties/launchSettings.json -> If it needs changing you can change it there
-
-## Dockerbuild image commands
-
-- TBD
+Information on connecting to the Database is stored in WebApi/Properties/launchSettings.json

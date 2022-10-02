@@ -26,19 +26,3 @@ Database Table: *Customer*
 | 1      | XYZ Plumbing       | 24 Fleet Street, Glasgow | Public Liability | Allianz | 2321.45 |
 
 
-
-
-
-
-***NOTE: If you choose to use the docker-compose.yml file - ignore the docker instructions. Or give it a read :)***
-
-## Docker Instructions
-
-Create the image from using the Dockerfile in the Database directory to create the docker image. This command will name the dockerimage **localmysql** and tag **v1**
-
-`docker build -t localmysql:v1 .`
-
-After building the image named localmysql, run the image with this command:
-
-`docker run --name localmysql -p 3306:3306 localmysql:v1`
-

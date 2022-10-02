@@ -1,6 +1,7 @@
-const host = "18.130.193.186";
+const host = "localhost";
 const port = 5143;
 
 export const apiCustomerPath = `/api/Customer`;
 
 export const url = `http://${host}:${port}`
+q

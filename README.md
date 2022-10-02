@@ -1,31 +1,40 @@
 # InterviewCodingTask
 
+To run the project there are **2 steps**.
 
+1) Run the docker command in the root directory. This command will create 2 docker containers(Frontend & DB)
+
+``` docker-compose up ``` 
+
+2) Go to Backend/WebApi and run 'dotnet run'
+
+This last step is not needed ussually however there are some configuration needed to run a dotnet solution in a docker container. These are yet to be set. I will do so when i have time however for now this will be go-to method.
+
+To view the App goto localhost:8080
 
 ## **To-do list**
-- [ ] Set up Dockerfiles to create docker images for each "*end*"
-  - [ ] Frontend
-  - [ ] Backend
+- [x] Set up Dockerfiles to create docker images for each "*end*"
+  - [x] Frontend
+  - [x] Backend
   - [x] DB-end :) 
 - [ ] API Server
   - [ ] Set up UnitTests and Success conditions
-  - [ ] Request mapping 
-  - [ ] Database data mapping
-  - [ ] Database Connection
-  - [ ] Database Query functions
-    - [ ] Search -> Get Request
-    - [ ] Add -> Post Request
-    - [ ] Edit -> Put/Post Request
+  - [x] Request mapping 
+  - [x] Database data mapping
+  - [x] Database Connection
+  - [x] Database Query functions
+    - [x] Search -> Get Request
+    - [x] Add -> Post Request
+    - [x] Edit -> Put/Post Request
 - [x] Database MySQL
   - [x] Create table based on AchmeBroker.txt file
-- [ ] Frontend VUE
-  - [ ] Json response from a get request to Server API 
-  - [ ] Transform Json to User-friendly output - Table
-  - [ ] Prettify - Finalise CSS and make the site appealing
+- [x] Frontend VUE
+  - [x] Json response from a get request to Server API 
+  - [x] Transform Json to User-friendly output - Table
+  - [x] Prettify - Finalise CSS and make the site appealing
 
 
 
-Insert class diagram or workflow 
 
 ## **My Approach Notes**
 
@@ -46,7 +55,6 @@ I will be utilising the Model-View-Controller Architectural pattern as this will
 
 It also aides development by isoloating the different endpoints locally.
 
-Development progress will be reflected in the To-Do List above!
 
 ## **Digest of task**
 Client would like to interact with his customers data(policies) over the internet.
@@ -61,6 +69,3 @@ The data will be stored in a DB while read/write queries will be handled via an 
 The Frontend should mirror a policy list webpage - and the overall appeal and design of the webpage must look GOOD! :)
 
 
-## **Extras**
-
-To-do once base requirements are fulfilled

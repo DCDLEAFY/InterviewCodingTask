@@ -4,10 +4,11 @@ services:
     build: Frontend\InsuranceBrokerWebapp\.
     ports:
       - "8080:5173"
-  back:
-    build: Backend\WebApi\.
-    ports:
-      - "5143:5143"
+  # The backend requires extra configuration for dockerisation 
+  # back:
+  #   build: Backend\WebApi\.
+  #   ports:
+  #     - "5143:5143"
   db:
     build: Database\.
     ports:
